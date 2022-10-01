@@ -55,6 +55,6 @@ inc += [arduinobase_path + '/include']
 # generated
 inc += [cwd + '/generated']
 
-group = DefineGroup('RTduino-MATLAB', src, depend = ['PKG_USING_ARDUINO_MATLAB_SUPPORT_PACKAGE'], CPPPATH = inc)
+group = DefineGroup('RTduino-MATLAB', src, depend = ['PKG_USING_ARDUINO_MATLAB_SUPPORT'], CPPPATH = inc)
 
 Return('group')
