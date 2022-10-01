@@ -12,8 +12,6 @@
 
 /* Define IO_STANDARD_ENABLE as 1 to consider the following flags. */
 
-#include <pins_arduino.h>
-
 #define IO_STANDARD_ENABLE 1
 
 #if IO_STANDARD_ENABLE

@@ -55,12 +55,11 @@ uint8_T customData2 = 20;
 
 void ioServerInit(void)
 {
-
     memset(&StreamModeVariable,0,sizeof(StreamModeVariable));
     memset(&DistressStatusVariable,0,sizeof(DistressStatusVariable));
     memset(&StreamLinkedListVariable,0,sizeof(StreamLinkedListVariable));
     openConnection();           /* open serial channel rtiostream */
-    initErrorPacker();                  /* Init error packet and generate the corresponding checksum */
+    initErrorPacker();          /* Init error packet and generate the corresponding checksum */
 #if IO_STANDARD_ENABLE
     standardPeripheralsInit();  /* Init Standard Peripherals */
 #endif

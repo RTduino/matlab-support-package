@@ -3,15 +3,10 @@
  * Copyright 2011-2019 The MathWorks, Inc.
  */
 
-#include "Arduino.h"
+#include <Arduino.h>
 
-#if defined (_ROTH_DUE_) || defined(_ROTH_MKR1000_) || defined(_ROTH_MKRZERO_) || defined(_ROTH_MKRWIFI1010_)
-#define clearInt()
-#define enableInt()
-#else
-#define clearInt() cli()
-#define enableInt() sei()
-#endif
+#define clearInt()    // disable interrupt
+#define enableInt()   // enable interrupt
 
 #ifndef _rtiostream
 
@@ -36,13 +31,6 @@ int rtIOStreamOpen(int argc, void * argv[])
     int result = RTIOSTREAM_NO_ERROR;
     int flushedData;
 
-    #ifndef MW_PIL_ARUDINOSERIAL
-     init();
-    #endif
-
-    #ifdef MW_PIL_ARUDINOSERIAL
-      Serial.begin(MW_PIL_SERIAL_BAUDRATE);
-
      /* At high baud rates (i.e. 115200), the Arduino is receiving an
       * initial byte of spurious data (0xF0 / 240) when opening a connection
       * even though the host has not transmitted this data! This is causing
@@ -52,10 +40,8 @@ int rtIOStreamOpen(int argc, void * argv[])
       * buffer. A delay of 5Sec(rtiostream postopenpause) is given on the
       * host between opening the connection and init bytes.
      */
-      delay(1000);
-    #else
-        Serial.begin(115200);
-    #endif
+    Serial.begin(115200);
+    // delay(1000);
 
     /* Flush out the serial receive buffer when opening a connection. This
      * works around an issue we've noticed with Arduino at high baud rates.
@@ -131,11 +117,9 @@ int rtIOStreamRecv(
 int rtIOStreamClose(int streamID)
 {
     delay(1000);
-#if defined(_ROTH_LEONARDO_) || defined(_ROTH_MKR1000_) || defined(_ROTH_MKRZERO_) || defined(_ROTH_MKRWIFI1010_)
     int flushedData;
     while (Serial.available()) {
         flushedData = Serial.read();
     }
-#endif
     return RTIOSTREAM_NO_ERROR;
 }
