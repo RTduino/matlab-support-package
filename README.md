@@ -1,1 +1,1 @@
-## MATLAB & Simulink Support Package for RTduino Hardware
+# MATLAB & Simulink Support Package for RTduino Hardware
